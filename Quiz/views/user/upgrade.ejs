@@ -1,0 +1,169 @@
+<section class="pricing-section">
+    <div class="container">
+        <div class="pricing-header text-center">
+            <p style="margin-top: 30px;font-size: 2rem;font-style: normal;font-weight: 600;line-height: 2.125rem;
+            color: black;">Chọn gói sử dụng phù hợp với bạn</p>
+            <div class="pricing-duration">
+                <label for="1-month">
+                    <input type="radio" name="duration" id="1-month" data-type="month" checked>
+                    1 tháng
+                </label>
+
+                <label for="3-months">
+                    <input type="radio" name="duration" id="3-months" data-type="quarter">
+                    3 tháng
+                    <div class="discount-badge">-20%</div>
+                </label>
+
+                <label for="12-months">
+                    <input type="radio" name="duration" id="12-months" data-type="year">
+                    12 tháng
+                    <div class="discount-badge">-40%</div>
+                </label>
+            </div>
+        </div>
+        <div id="pricing-plans"
+            style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 30px;align-items: stretch;">
+            <!-- các gói nâng cấp -->
+        </div>
+    </div>
+    <script type="module" src="/User/js/exam/upgrade-js.js"></script>
+</section>
+<style>
+    .benefit-package {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .icon-benefit-list {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentcolor;
+        flex-shrink: 0;
+        font-size: 1.5rem;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        color: #26c766;
+    }
+
+    #pro-plan {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .pricing-section {
+        margin-bottom: 20px;
+        background-color: #f8f9fa;
+    }
+
+    .pricing-header p {
+        font-size: 18px;
+        color: #6c757d;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+
+
+    .pricing-duration {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .pricing-duration label {
+        margin: 0 15px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        font-weight: 500;
+        font-size: 17px;
+    }
+
+    .pricing-duration input[type="radio"] {
+        margin-right: 5px;
+    }
+
+    .discount-badge {
+        background-color: #22c55e;
+        /* Green background */
+        padding: 2px 8px;
+        border-radius: 4px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .pricing-plans {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+    }
+
+    .plan {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .plan h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .plan .price {
+        font-size: 25px;
+        color: rgb(59 130 246);
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 1.625rem;
+    }
+
+    .plan ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 20px;
+    }
+
+    .plan ul li {
+        margin-bottom: 10px;
+        font-size: 16px;
+        color: #6c757d;
+        padding: 8px;
+    }
+
+    .btn-register {
+        display: inline-flex;
+        background-image: linear-gradient(90.57deg, rgb(62, 101, 254) 0%, rgb(210, 60, 255) 100%) !important;
+        color: #fff;
+        padding: 6px 16px;
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+        border-radius: 4px;
+        min-width: 100%;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-weight: 500;
+        line-height: 1.75;
+    }
+
+    .btn-register:hover {
+        background: linear-gradient(90deg, rgb(27, 73, 254) 15%, rgb(199, 11, 255) 100%);
+        color: white;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        text-decoration: none;
+    }
+
+    input[type="radio"] {
+        transform: scale(1.5);
+        /* Phóng to nút radio */
+    }
+</style>

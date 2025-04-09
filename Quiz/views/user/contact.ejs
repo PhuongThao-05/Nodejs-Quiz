@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="/User/css/chatstyle.css">
+<script src="/User/js/checkAuthuser.js"></script>
+    <div class="chat-container">
+        <div id="chat-title" class="chat-title">
+            <p id="header-chatbox" class="header-chatbox"><i class="fa-solid fa-headset" style="font-size: xx-large;"></i>Liên hệ với Admin</p>
+        </div>
+        <div id="chat-box" class="chat-box">
+            <!-- Tin nhắn sẽ được thêm vào đây -->
+        </div>
+        <div class="chat-input">
+            <img src="/User/images/cute-little-schoolboy-graduation.png" alt="profile" style="border: 1px solid #948e8e57;width: 51px;height: 100%;border-radius: 50%;margin-right: 10px;" />
+            <input type="text" id="message-input" placeholder="Nhập tin nhắn...">
+            <button id="send-button">Gửi<i class="fa-regular fa-paper-plane" style="font-size: large;"></i></button>
+        </div>
+    </div>
+<style>
+.message.user {
+    justify-content: flex-end; /* Căn tin nhắn của user sang phải */
+}
+
+.message.admin {
+    justify-content: flex-start; /* Căn tin nhắn của admin sang trái */
+}
+
+.message.user .bubble {
+    background: #a4cbf854;
+    border: 1px solid #e5e5e5b0;
+    color: black;
+    border-top-right-radius: 0;
+}
+
+.message.admin .bubble {
+    background: #fff;
+    border: 1px solid #e5e5e5b0;
+    color: black;
+    border-top-left-radius: 0;
+}
+</style>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/User/js/exam/chat-user.js"></script>

@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/User/css/exam/account-style.css">
+<div class="usage-container">
+    <!-- Left Section: Current Plan -->
+    <div class="current-plan">
+        <div class="plan-header">
+            <span class="plan-title" id="plan-title">EduQuiz - Cá nhân - FREE</span>
+            <p>Thời hạn sử dụng: <strong id="expired-time">Vĩnh viễn</strong></p>
+        </div>
+        <h4 class="my-advatages">QUYỀN LỢI</h4>
+        <ul class="features" id="my-features">
+            <li><svg class="icon-benefit-list" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckCircleIcon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg>
+                Tạo 5 đề thi mỗi tháng</li>
+            <li><svg class="icon-benefit-list" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckCircleIcon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg>
+                Được thi 5 lần mỗi tháng</li>
+            <li><svg class="icon-benefit-list" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckCircleIcon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg>
+                Lưu trữ kết quả thi không giới hạn</li>
+            <li><svg class="icon-benefit-list" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="CheckCircleIcon"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"></path></svg>
+                Ưu tiên hỗ trợ 24/7</li>
+        </ul>
+        <!-- Upgrade Button -->
+        <a href="/user/upgrade" class="upgrade-button">Nâng cấp gói dịch vụ</a>
+    </div>
+
+    <!-- Right Section: Usage Levels -->
+    <div class="usage-section">
+        <h3>Mức sử dụng</h3>
+
+        <div class="usage-item" id="de-thi">
+            Đề thi <span style="float: right;">0/5</span>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="usage-item" id="luot-thi">
+            Lượt thi <span style="float: right;">0/200</span>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="usage-item" id="luot-tai">
+            Lượt tải <span style="float: right;">3/5</span>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 60%;"></div>
+            </div>
+        </div>
+        <div class="usage-item" id="my-upgrade" style="border: dashed 3px #f5de82;padding: 20px;border-radius: 10px;background-color: #ffffe8;display: none;" >
+            <p style="margin: 0;font-size: 1.1rem;text-align: center;">Yêu cầu nâng cấp: 
+                <strong id="require-upgrade" style="color: #eb6059;"> Đang xét duyệt</strong></p>
+        </div>
+    </div>
+</div>
+<script src="/User/js/exam/check-expire-renew.js"></script>
+<script type="module" src="/User/js/exam/account-js.js"></script>
+

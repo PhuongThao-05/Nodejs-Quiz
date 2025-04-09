@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>EduQuiz-Exams</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="/User/Static/css/animate.css">
+	
+	<link rel="stylesheet" href="/User/Static/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/User/Static/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/User/Static/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="/User/Static/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="/User/Static/css/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+	<link rel="stylesheet" href="/User/Static/css/flaticon.css">
+	<link rel="stylesheet" href="/User/Static/css/style.css">
+	<link rel="shortcut icon" href="/User/images/graduation-cap.png" />
+	<script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a href="/user/home"
+                style="display: flex;flex-direction: row;align-items: center;gap: 10px;text-decoration: none;font-size: 1.6rem;font-weight: 800;
+    background: linear-gradient(45deg, #0045ff 15%, #e478c9 100%);background-clip: text;-webkit-text-fill-color: transparent;">
+                <img src="/User/images/graduation-cap.png" alt="Logo"
+                    style="width:auto; height: 50px; margin-left: 100px;">
+                EduQuiz
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+            </button>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto" style="display: flex;flex-direction: row; align-items: center;">
+				<li class="nav-item"><a href="/user/home" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="/user/lsttopic" class="nav-link">Exams</a></li>
+                <li class="nav-item"><a href="/user/contact" class="nav-link" target="_blank">Contact</a></li>
+                <li class="nav-item"><a href="/user/price" class="nav-link">Price</a></li>
+				<li class="nav-item li-sign-up-in" id="signup-in-Button"><a href="/user/register" class="nav-link">Sign up</a>/<a href="#" id="login-btn" class="nav-link">Sign in</a></li>
+                <li id="profileMenu" class="nav-item nav-profile dropdown" style="display: none;">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
+                        style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                        <img src="/User/images/cute-little-schoolboy-graduation.png" alt="profile"
+                            style="border: 1px solid #948e8e57;border: 1px solid #948e8e57;width: 40px;height: 40px;border-radius: 100%;" />
+							<span id="user-fullname" style="    font-size: 14px;font-weight: 600;">
+								<!-- tên người dùng -->
+							</span>
+						</a>
+						<div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"
+							id="profileDropdownMenu">
+							<a class="dropdown-item user-item-dropdown" href="/user/index"  target="_blank" >
+								<i class="fa-solid fa-house-user" style=" font-size: 1.2rem;"></i>
+								EduQuiz Studio
+							</a>
+							<a id="user-profile-link" class="dropdown-item user-item-dropdown" href="/user/profile" target="_blank">
+								<i class="fa-solid fa-gear" style=" font-size: 1.2rem;"></i>
+								Hồ sơ
+							</a>
+                        <a class="dropdown-item user-item-dropdown" id="logoutButton">
+                            <i class="fa-solid fa-power-off" style=" font-size: 1.2rem;"></i>
+                            Log out
+                        </a>
+                    </div>
+                </li>
+				<style>
+                    a#profileDropdown.nav-link.dropdown-toggle::after{
+                        display: none;
+                    }
+                    #profileDropdownMenu{
+                        background-color: #ffffff5e;
+                        top: 75px;
+                    }
+                    .user-item-dropdown:focus{
+                        background-color: #ffffff;
+                    }
+                    #logoutButton:active{
+                        background-color: #ffffff;
+                        cursor: pointer;
+                    }
+                   .user-item-dropdown{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        font-family: system-ui;
+                        cursor: pointer;
+                    }
+					.li-sign-up-in{
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					min-width: fit-content;
+					margin-right: 50px;
+					}
+                </style>
+    <script>
+        document.getElementById("logoutButton").addEventListener("click", function (event) {
+            event.preventDefault(); 
+		   	const keysToKeep = ['tokenAdmin'];
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (!keysToKeep.includes(key)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => {
+                    localStorage.removeItem(key);
+                }); 
+				window.location.reload();
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem("token");
+        if (token) {
+        document.getElementById("profileMenu").style.display = "block";
+		document.getElementById("signup-in-Button").style.display = "none";
+            // Lấy phần tử ảnh và menu
+            const profileImage = document.getElementById('profileDropdown');
+            const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+
+			const userInfo = localStorage.getItem('userInfo');
+
+				if (userInfo) {
+					const user = JSON.parse(userInfo);
+					document.getElementById('user-fullname').textContent = user.hoten;
+				}
+
+            // Khi click vào ảnh
+            profileImage.addEventListener('click', function (event) {
+                event.preventDefault();
+               
+                if (profileDropdownMenu.style.display === 'none' || profileDropdownMenu.style.display === '') {
+                    profileDropdownMenu.style.display = 'block'; 
+                } else {
+                    profileDropdownMenu.style.display = 'none'; 
+                }
+            });
+
+            
+            document.addEventListener('click', function (event) {
+                // Kiểm tra nếu click bên ngoài menu và ảnh
+                if (!profileImage.contains(event.target) && !profileDropdownMenu.contains(event.target)) {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu nếu click bên ngoài
+                }
+            });
+        } else {
+      
+        document.getElementById("profileMenu").style.display = "none";
+		document.getElementById("signup-in-Button").style.display = "flex";
+		document.getElementById('login-btn').addEventListener('click', function(event){
+        event.preventDefault();
+		const currentUrl = window.location.pathname + window.location.search;
+		window.location.href = `/user/login?redirect=${encodeURIComponent(currentUrl)}`;
+		});
+        }
+        });
+    </script>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    <!-- END nav -->
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('/User/Static/images/bg_2.jpg');">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end justify-content-center">
+				<div class="col-md-9 ftco-animate pb-5 text-center">
+					<p class="breadcrumbs"><span class="mr-2"><a href="/user/home">Home <i class="fa fa-chevron-right"></i></a></span> <span>List topics <i class="fa fa-chevron-right"></i></span></p>
+					<h1 class="mb-0 bread">List topics</h1>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="ftco-section bg-light">
+		<div class="container" style="display: flex;flex-direction: row;gap: 30px;">
+			<div class="row">
+				<div class="sidebar">
+					<div class="sidebar-box bg-white ftco-animate">
+						<div class="search-form">
+							<div class="form-group">
+								<span class="icon fa fa-search"></span>
+								<input type="text" id="searchInput" class="form-control" placeholder="Search...">
+							</div>
+						</div>
+					</div>
+
+					<div class="sidebar-box bg-white p-4 ftco-animate">
+						<h3 class="heading-sidebar" style="font-family: sans-serif;">Trình độ</h3>
+						<form class="browse-form">
+							<label for="option-category-1">
+								<input type="checkbox" id="option-category-1" name="level" value="Trung học cơ sở"> Trung học cơ sở
+							</label><br>
+							<label for="option-category-2">
+								<input type="checkbox" id="option-category-2" name="level" value="Trung học phổ thông"> Trung học phổ thông
+							</label><br>
+							<label for="option-category-3">
+								<input type="checkbox" id="option-category-3" name="level" value="Đại học"> Đại học
+							</label>
+						</form>
+					</div>
+					
+					<div class="sidebar-box bg-white p-4 ftco-animate">
+						<h3 class="heading-sidebar" style="font-family: sans-serif;">Trường học</h3>
+						<form class="browse-form">
+							<select id="truong" class="form-control" disabled>
+								<option value="">Chọn trường</option>
+							</select>
+						</form>
+					</div>
+					
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="row" id="topics-container">
+						<!-- Hiển thị danh sách đề thi -->
+						
+					</div>
+					<div class="row mt-5">
+						<div class="col">
+							<div class="block-27">
+								<ul id="paginationContainer">
+									<li><a href="#">&lt;</a></li>
+									<li class="active"><span>1</span></li>
+									<li><a href="#">&gt;</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<script src="/User/js/Loadschools.js"></script>
+					<script src="/User/js/exam/lsttopic-js.js"></script>
+					<script src="/User/js/exam/check-expire-renew.js"></script>
+				</div>
+			</div>
+		</section>
+
+		<footer class="ftco-footer ftco-no-pt">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">About</h2>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							<ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+								<li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+								<li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+								<li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+							<h2 class="ftco-heading-2">Help Desk</h2>
+							<ul class="list-unstyled">
+								<li><a href="#" class="py-2 d-block">Customer Care</a></li>
+								<li><a href="#" class="py-2 d-block">Legal Help</a></li>
+								<li><a href="#" class="py-2 d-block">Services</a></li>
+								<li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+								<li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+								<li><a href="#" class="py-2 d-block">Call Us</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">Recent Courses</h2>
+							<ul class="list-unstyled">
+								<li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+								<li><a href="#" class="py-2 d-block">Web Design</a></li>
+								<li><a href="#" class="py-2 d-block">Business Studies</a></li>
+								<li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+								<li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+								<li><a href="#" class="py-2 d-block">Web Developer</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">Have a Questions?</h2>
+							<div class="block-23 mb-3">
+								<ul>
+									<li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+									<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+									<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+
+						<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+						</div>
+					</div>
+				</div>
+			</footer>
+			
+			
+
+			<!-- loader -->
+			<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+			<script src="/User/Static/js/jquery.min.js"></script>
+			<script src="/User/Static/js/jquery-migrate-3.0.1.min.js"></script>
+			<script src="/User/Static/js/popper.min.js"></script>
+			<script src="/User/Static/js/bootstrap.min.js"></script>
+			<script src="/User/Static/js/jquery.easing.1.3.js"></script>
+			<script src="/User/Static/js/jquery.waypoints.min.js"></script>
+			<script src="/User/Static/js/jquery.stellar.min.js"></script>
+			<script src="/User/Static/js/owl.carousel.min.js"></script>
+			<script src="/User/Static/js/jquery.magnific-popup.min.js"></script>
+			<script src="/User/Static/js/jquery.animateNumber.min.js"></script>
+			<script src="/User/Static/js/bootstrap-datepicker.js"></script>
+			<script src="/User/Static/js/scrollax.min.js"></script>
+			<script src="/User/Static/js/main.js"></script>
+			
+			<style>
+				.project-wrap.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.project-wrap.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Phong cách hình nền */
+.img {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 150px;
+	width: 200px;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Phần nội dung */
+.text {
+    padding: 15px;
+    color: #4a4a4a;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 8px;
+    color: #333;
+    text-decoration: none;
+}
+
+.info {
+    font-size: 14px;
+    color: #828282;
+}
+
+.info span {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.info i {
+    margin-right: 5px;
+    color: #6f58c9;
+}
+
+/* Tác giả */
+.author {
+    font-size: 14px;
+    color: #6f58c9;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Nút vào ôn thi */
+.btn-primary {
+    background-color: #6f58c9;
+    color: #fff;
+    border: none;
+    padding: 8px 0;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #5a47a7;
+}
+
+			</style>
+		</body>
+		</html>

@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="/User/css/topic-style.css">
+<link rel="stylesheet" href="/Notification/Notification.css">
+<div id="notification" class="notification" style="display: none;">
+    <span id="notification-message"></span>
+    <button id="close-notification">×</button>
+</div>
+
+<div style="background-color: white;border-radius: 5px;padding: 1rem 1.25rem;margin: 10px 27px;">
+    <p class="card-title" style="margin-bottom: 0;    font-size: 1.2rem; font-weight: 600;">Tạo đề thi mới</p>                   
+</div>
+<nav class="tab-nav" style="margin-bottom: 0;">
+                    <ul>
+                        <li class="tab active">Thông tin cơ bản</li>
+                        <li class="tab disabled" id="edit-ques-tab">Sửa câu hỏi</li>
+                        <li class="tab disabled" id="thongke-tab">Thống kê</li>                      
+                    </ul>
+<a href='/user/topic' class="btn-returntopic">Trở về</a>
+</nav>
+                <div class="container active create-form-ques">
+                    <h3 style="margin-bottom: 30px;">Thông tin cơ bản</h3>
+                    <div class="form-group-topic">
+                        <label for="tende">Tên đề thi:</label>
+                        <input class="form-inputgroup" type="text" id="tende" name="tende" required>
+                    </div>
+                    <div class="form-group-topic">
+                        <label for="monhoc">Môn học:</label>
+                        <input class="form-inputgroup" type="text" id="monhoc" name="monhoc" required>
+                    </div>
+                    <div class="form-group-topic">
+                        <label for="trinhdo">Trình độ:</label>
+                        <select class="form-inputgroup" id="trinhdo" name="trinhdo" onchange="loadSchools(this.value)">
+                            <option value="Trung học cơ sở">Trung học cơ sở</option>
+                            <option value="Trung học phổ thông">Trung học phổ thông</option>
+                            <option value="Đại học">Đại học</option>
+                        </select>
+                    </div>
+                    <div class="form-group-topic">
+                        <label for="truong">Trường học:</label>
+                        <select class="form-inputgroup" id="truong" name="truong" required>
+                            <option value="">Chọn trường</option>
+                        </select>
+                    </div>
+                    <button type="button" class="button-create" id="createButton" >Tạo đề thi</button>
+                    <button type="button" class="button-create" id="updateButton" style="display: none;" >Cập nhật đề thi</button>
+                </div>
+            <style>
+                .tab.disabled {
+                    pointer-events: none;
+                    opacity: 0.5;
+                }
+            </style>
+                <!-- Bạn có thể thêm nội dung cho các tab khác ở đây -->
+                <div class="container" style="    margin: 0px 27px;min-width: 1187px;padding: 0;">
+                    <%- include("editquestion.ejs"); %>    
+                </div>
+                <div class="container">
+                    <h2>Cài đặt nâng cao</h2>
+                    <p>Nội dung để cài đặt nâng cao sẽ được thêm vào đây.</p>
+                </div>
+                <div class="container">
+                    <h2>Thống kê</h2>
+                    <p>Nội dung thống kê sẽ được thêm vào đây.</p>
+                </div>
+            <script src="/User/js/Loadschools.js"></script>
+            <script src="/Notification/Notification.js"></script>
+            <script type="module" src="/User/js/exam/createtopic-js.js"></script>
+
+

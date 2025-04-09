@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= title %></title>    
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="/User/vendors/feather/feather.css">
+    <link rel="stylesheet" href="/User/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="/User/vendors/css/vendor.bundle.base.css">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="/User/vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="/User/vendors/ti-icons/css/themify-icons.css">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/User/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="/User/images/graduation-cap.png" />
+    <script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-scroller">
+        <!-- navbar ngang -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" href="/user/index"><img src="/User/images/graduation-cap.png"
+                        class="mr-2" alt="logo" />
+                    <span style="    font-weight: 600;">
+                        EduQuiz
+                    </span></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav mr-lg-2">
+                    <li class="nav-item nav-search d-none d-lg-block">
+                        <div class="input-group">
+                            <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                                <span class="input-group-text" id="search">
+                                    <i class="icon-search"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now"
+                                aria-label="search" aria-describedby="search">
+                        </div>
+                    </li>
+                </ul>
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item">
+                        <a href="/user/createtopic" class="add-topic"> <i class="fa-regular fa-square-plus"
+                                style="font-size: 1.1rem;"></i> Tạo đề thi</a>
+                    </li>
+                    <li class="nav-item nav-profile dropdown" id="profileMenu">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown" style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                            <img src="/User/images/cute-little-schoolboy-graduation.png" alt="profile"
+                                style="border: 1px solid #948e8e57;" />
+                          <span id="user-fullname" style="    font-size: 14px;font-weight: 600;">  <!-- tên người dùng --></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                            aria-labelledby="profileDropdown" id="profileDropdownMenu">
+                            <a class="dropdown-item" href="/user/index">
+                                <i class="fa-solid fa-house-user text-primary"></i>
+                                EduQuiz Studio
+                            </a>
+                            <a id="user-profile-link" class="dropdown-item" href="/user/profile">
+                                <i class="ti-settings text-primary"></i>
+                                Hồ sơ
+                            </a>
+                            <a class="dropdown-item" id="logoutButton">
+                                <i class="ti-power-off text-primary"></i>
+                                Log out
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <script>
+            document.getElementById("logoutButton").addEventListener("click", function(event) {
+            event.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
+             // Xóa dữ liệu khỏi localStorage
+             const keysToKeep = ['tokenAdmin'];
+                // Lưu lại các key trong localStorage
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    // Kiểm tra xem key có trong danh sách giữ lại hay không
+                    if (!keysToKeep.includes(key)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                // Xóa các key không cần thiết
+                keysToRemove.forEach(key => {
+                    localStorage.removeItem(key);
+                });  
+             const currentUrl = window.location.pathname + window.location.search;
+			window.location.href = `/user/login?redirect=${encodeURIComponent(currentUrl)}`;
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+              // Kiểm tra nếu token tồn tại trong localStorage
+        const token = localStorage.getItem("token");
+        if (token) {
+            document.getElementById("profileMenu").style.display = "block";
+            // Lấy phần tử ảnh và menu
+            const profileImage = document.getElementById('profileDropdown');
+            const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+            const userInfo = localStorage.getItem('userInfo');
+
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                document.getElementById('user-fullname').textContent = user.hoten;
+            }
+
+            // Khi click vào ảnh
+            profileImage.addEventListener('click', function(event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+                // Chuyển đổi hiển thị của menu
+                if (profileDropdownMenu.style.display === 'none' || profileDropdownMenu.style.display === '') {
+                    profileDropdownMenu.style.display = 'block'; // Hiển thị menu
+                } else {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu
+                }
+             });
+
+    // Khi click bên ngoài menu, ẩn menu
+    document.addEventListener('click', function(event) {
+        // Kiểm tra nếu click bên ngoài menu và ảnh
+        if (!profileImage.contains(event.target) && !profileDropdownMenu.contains(event.target)) {
+            profileDropdownMenu.style.display = 'none'; // Ẩn menu nếu click bên ngoài
+        }
+    });
+    } else {
+        document.getElementById("profileMenu").style.display = "none";
+        }
+});
+        </script>
+        <div class="container-fluid page-body-wrapper">
+            <!-- nav dọc-->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="parent-item">
+                        <a class="nav-link toggle-submenu parent-a" href="#" data-toggle="collapse">
+                            <div>
+                                <i class="fa-regular fa-user menu-icon" style="font-size: 20px;"></i>
+                                <span class="menu-title" style="font-size: 1rem;">Cá nhân</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow-icon"
+                                style="font-size: 13px;margin-left: auto;"></i>
+                        </a>
+                        <ul class="submenu" style="display: block;"> <!-- Đặt submenu hiển thị ngay từ đầu -->
+                            <li class="submenu-item"><a class="nav-link link-feature" href="/user/index"
+                                    style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                                    <i class="fa-regular fa-star"></i> Thư viện của tôi</a>
+                            </li>
+                            <li class="submenu-item"><a class="nav-link link-feature" href="/user/myresult"
+                                    style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                                    <i class="fa-solid fa-list"></i> Kết quả của tôi</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class=" parent-item">
+                        <a class="nav-link toggle-submenu parent-a" href="#" data-toggle="collapse">
+                            <div>
+                                <i class="fa-solid fa-graduation-cap menu-icon" style="font-size: 20px;"></i>
+                                <span class="menu-title" style="font-size: 1rem;">Quản lý</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-down arrow-icon"
+                                style="font-size: 13px;margin-left:auto;"></i>
+                        </a>
+                        <ul class="submenu" style="display: block;"> <!-- Đặt submenu hiển thị ngay từ đầu -->
+                            <li class="submenu-item"><a class="nav-link link-feature" href="/user/topic"
+                                    style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                                    <i class="icon-paper"></i> Đề thi</a>
+                            </li>
+                            <li class="submenu-item"><a class="nav-link link-feature" href="/user/account"
+                                    style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                                    <i class="fa-solid fa-crown"></i> Gói dịch vụ</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="">
+                        <a class="nav-link parent-a" href="/user/contact">
+                            <i class="fa-regular fa-message menu-icon" style="font-size: 20px;"></i>
+                            <span class="menu-title" style="font-size: 1rem;">Hỗ trợ tư vấn</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <style>
+                ul {
+                    list-style: none;
+                    padding-left: 0;
+                }
+
+                .active-feature {
+                    background: #d4defa;
+                    border-radius: 10px;
+                }
+
+                .sub-feature {
+                    color: black !important;
+                }
+
+                .arrow-icon {
+                    transition: transform 0.3s ease;
+                }
+
+                .parent-a {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    color: #6C7383;
+                }
+
+                .link-feature {
+                    color: #6C7383;
+                }
+
+                .add-topic {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 10px;
+                    cursor: pointer;
+                    font-weight: 500;
+                    color: rgb(255, 255, 255);
+                    background-color: rgb(62, 101, 254);
+                    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+                    text-transform: none;
+                    font-size: 0.875rem;
+                    background-image: linear-gradient(90.57deg, rgb(62, 101, 254) 0%, rgb(210, 60, 255) 100%) !important;
+                    margin: 0px;
+                    text-decoration: none;
+                    padding: 6px 16px;
+                    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+                    border-radius: 4px;
+                }
+
+                .add-topic:hover {
+                    text-decoration: none;
+                    background: linear-gradient(90deg, rgb(27, 73, 254) 15%, rgb(199, 11, 255) 100%);
+                    color: white;
+                    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+                }
+
+                .submenu-item {
+                    margin: 5px 2px;
+                }
+            </style>
+
+            <script>
+                // Lấy tất cả các mục cha có class 'parent-item'
+                const parentItems = document.querySelectorAll('.parent-item');
+
+                // Lặp qua từng mục cha và gán sự kiện click
+                parentItems.forEach(item => {
+                    const submenu = item.querySelector('.submenu');
+                    const arrowIcon = item.querySelector('.arrow-icon');
+
+                    // Xử lý khi nhấn vào mục cha để ẩn/hiện submenu
+                    item.querySelector('.toggle-submenu').addEventListener('click', function (event) {
+                        event.preventDefault(); // Ngăn chặn tải lại trang
+
+                        // Kiểm tra trạng thái hiển thị của submenu và thay đổi hiển thị/icon
+                        if (submenu.style.display === 'block') {
+                            submenu.style.display = 'none';
+                            arrowIcon.classList.remove('fa-chevron-down');
+                            arrowIcon.classList.add('fa-chevron-right');
+                        } else {
+                            submenu.style.display = 'block';
+                            arrowIcon.classList.remove('fa-chevron-right');
+                            arrowIcon.classList.add('fa-chevron-down');
+                        }
+                    });
+                });
+
+                // Thêm sự kiện click cho các mục 'submenu-item' để thêm màu nền
+                const submenuItems = document.querySelectorAll('.submenu-item');
+                submenuItems.forEach(subItem => {
+                    subItem.addEventListener('click', function (event) {
+                        event.stopPropagation(); // Ngăn chặn sự kiện click lan lên các phần tử cha
+                        // Xóa lớp 'active' ở tất cả các submenu-item
+                        submenuItems.forEach(item => {
+                            item.classList.remove('active-feature');
+                            // Xóa class 'sub-feature' từ thẻ <a> trong thẻ <li>
+                            const link = item.querySelector('.link-feature');
+                            if (link) {
+                                link.classList.remove('sub-feature');
+                            }
+                        });
+
+                        // Thêm lớp 'active' vào submenu-item hiện tại
+                        this.classList.add('active-feature');
+
+                        // Thêm class 'sub-feature' cho thẻ <a> bên trong thẻ <li> hiện tại
+                        const link = this.querySelector('.link-feature');
+                        if (link) {
+                            link.classList.add('sub-feature');
+                        }
+                    });
+                });
+            </script>
+              <!-- main -->
+            <div class="main-panel" style="background-color: #f5f5f5;">              
+              <!-- content -->
+              <%- include(body); %>               
+            </div>
+        </div>
+    </div>
+    <!--footer -->
+    <footer class="footer">
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.
+                Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin
+                    template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made
+                with <i class="ti-heart text-danger ml-1"></i></span>
+        </div>
+        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Distributed by <a
+                    href="https://www.themewagon.com/" target="_blank">Themewagon</a></span>
+        </div>
+    </footer>
+    <!-- Plugin js for this page -->
+    <script src="/User/vendors/chart.js/Chart.min.js"></script>
+</body>
+
+</html>

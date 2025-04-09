@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>EduQuiz</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="/User/Static/css/animate.css">
+	
+	<link rel="stylesheet" href="/User/Static/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/User/Static/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/User/Static/css/magnific-popup.css">
+
+	<link rel="stylesheet" href="/User/Static/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="/User/Static/css/jquery.timepicker.css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+	<link rel="stylesheet" href="/User/Static/css/flaticon.css">
+	<link rel="stylesheet" href="/User/Static/css/style.css">
+	<link rel="shortcut icon" href="/User/images/graduation-cap.png" />
+	<script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/Notification/Notification.css">
+    <script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a href="/user/home"
+                style="display: flex;flex-direction: row;align-items: center;gap: 10px;text-decoration: none;font-size: 1.6rem;font-weight: 800;
+    background: linear-gradient(45deg, #0045ff 15%, #e478c9 100%);background-clip: text;-webkit-text-fill-color: transparent;">
+                <img src="/User/images/graduation-cap.png" alt="Logo"
+                    style="width:auto; height: 50px; margin-left: 100px;">
+                EduQuiz
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+            </button>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto" style="display: flex;flex-direction: row; align-items: center;">
+				<li class="nav-item"><a href="/user/home" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="/user/lsttopic" class="nav-link">Exams</a></li>
+                <li class="nav-item"><a href="/user/contact" class="nav-link" target="_blank">Contact</a></li>
+                <li class="nav-item"><a href="/user/price" class="nav-link">Price</a></li>
+				<li class="nav-item li-sign-up-in" id="signup-in-Button"><a href="/user/register" class="nav-link">Sign up</a>/<a href="#" id="login-btn" class="nav-link">Sign in</a></li>
+                <li id="profileMenu" class="nav-item nav-profile dropdown" style="display: none;">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
+                        style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                        <img src="/User/images/cute-little-schoolboy-graduation.png" alt="profile"
+                            style="border: 1px solid #948e8e57;border: 1px solid #948e8e57;width: 40px;height: 40px;border-radius: 100%;" />
+                            <span id="user-fullname" style="    font-size: 14px;font-weight: 600;">
+                                <!-- tên người dùng -->
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"
+                            id="profileDropdownMenu">
+                            <a class="dropdown-item user-item-dropdown" href="/user/index"  target="_blank" >
+                                <i class="fa-solid fa-house-user" style=" font-size: 1.2rem;"></i>
+                                EduQuiz Studio
+                            </a>
+                            <a id="user-profile-link" class="dropdown-item user-item-dropdown" href="/user/profile" target="_blank">
+                                <i class="fa-solid fa-gear" style=" font-size: 1.2rem;"></i>
+                                Hồ sơ
+                            </a>
+                        <a class="dropdown-item user-item-dropdown" id="logoutButton">
+                            <i class="fa-solid fa-power-off" style=" font-size: 1.2rem;"></i>
+                            Log out
+                        </a>
+                    </div>
+                </li>
+				<style>
+                    a#profileDropdown.nav-link.dropdown-toggle::after{
+                        display: none;
+                    }
+                    #profileDropdownMenu{
+                        background-color: #ffffff5e;
+                        top: 75px;
+                    }
+                    .user-item-dropdown:focus{
+                        background-color: #ffffff;
+                    }
+                    #logoutButton:active{
+                        background-color: #ffffff;
+                        cursor: pointer;
+                    }
+                   .user-item-dropdown{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        font-family: system-ui;
+                        cursor: pointer;
+                    }
+					.li-sign-up-in{
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					min-width: fit-content;
+					margin-right: 50px;
+					}
+                </style>
+    <script>
+        document.getElementById("logoutButton").addEventListener("click", function (event) {
+            event.preventDefault(); 
+            const keysToKeep = ['tokenAdmin'];
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (!keysToKeep.includes(key)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(key => {
+                    localStorage.removeItem(key);
+                }); 
+				window.location.reload();
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem("token");
+        if (token) {
+        document.getElementById("profileMenu").style.display = "block";
+		document.getElementById("signup-in-Button").style.display = "none";
+            // Lấy phần tử ảnh và menu
+            const profileImage = document.getElementById('profileDropdown');
+            const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+            const userInfo = localStorage.getItem('userInfo');
+
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                document.getElementById('user-fullname').textContent = user.hoten;
+            }
+
+            // Khi click vào ảnh
+            profileImage.addEventListener('click', function (event) {
+                event.preventDefault();
+                if (profileDropdownMenu.style.display === 'none' || profileDropdownMenu.style.display === '') {
+                    profileDropdownMenu.style.display = 'block'; // Hiển thị menu
+                } else {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu
+                }
+            });
+
+            // Khi click bên ngoài menu, ẩn menu
+            document.addEventListener('click', function (event) {
+                // Kiểm tra nếu click bên ngoài menu và ảnh
+                if (!profileImage.contains(event.target) && !profileDropdownMenu.contains(event.target)) {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu nếu click bên ngoài
+                }
+            });
+        } else {
+        // Nếu không có token, ẩn menu
+        document.getElementById("profileMenu").style.display = "none";
+		document.getElementById("signup-in-Button").style.display = "flex";
+        document.getElementById('login-btn').addEventListener('click', function(event){
+        event.preventDefault();
+		const currentUrl = window.location.pathname + window.location.search;
+		window.location.href = `/user/login?redirect=${encodeURIComponent(currentUrl)}`;
+        });
+        }
+        });
+    </script>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    <!-- END nav -->
+    <div id="notification" class="notification" style="display: none;">
+        <span id="notification-message"></span>
+        <button id="close-notification">×</button>
+    </div>
+
+    <div class="main-container">
+        <!-- Container cho Thông tin đề thi -->
+        <div class="info-container">
+            <h3>Thông tin đề thi</h3>
+            <div class="exam-info">
+                <div class="exam-image">
+                    <img src="/User/Static/images/exam-04.png" alt="Exam Image" />
+                </div>
+                <div class="exam-details">
+                     <h2 style="font-family: sans-serif;"><!--Tên đề--></h2> 
+                    <div class="exam-meta">
+                        <div style="display: flex;flex-direction: row;gap: 10px;">
+                            <img src="/User/images/cute-little-schoolboy-graduation.png" alt="Author Avatar" class="author-avatar">
+                            <span class="author-name"><!--Tên người dùng--></span>
+                            </div>
+                            <span class="exam-date"><i class="fa fa-calendar"></i> <!--ngày đăng--></span>
+                        <span class="subject-name"> <!--môn học--></span>
+                        <span class="school-name"> <!--trường học--></span>
+                    </div>
+                    <div class="exam-stats">
+                        <span><i class="fa fa-question-circle"></i> <!--Tổng số câu hỏi--></span>
+                        <span><i class="fa fa-eye"></i> <!--Lượt truy cập--></span>
+                        <span><i class="fa-solid fa-download" aria-hidden="true"></i><!--Lượt tải--></span>
+                    </div>
+                </div>
+            </div>
+            <div class="exam-actions">
+                <a href="/user/exam?chedo=exam" class="start-exam-button detail-topic-button"><i class="fa-regular fa-circle-play" style="font-size: larger;"></i> Bắt đầu thi</a>
+                <a href="/user/exam?chedo=practice" class="start-exam-button detail-topic-button"><i class="fa-solid fa-hourglass-half" style="font-size: larger;"></i> Bắt đầu ôn thi</a>
+                <button href="#" id="download-exam-button" class="download-button detail-topic-button"><i class="fa-solid fa-file-arrow-down" style="font-size: larger;"></i> Tải về</button>
+            </div>
+        </div>           
+    </div>
+    <div class="contentex-container">
+        <div class="tab-container">
+            <div class="tab active" onclick="openTab(event, 'noidung')">Nội dung đề thi</div>
+            <div class="tab" onclick="openTab(event, 'ketqua')">Kết quả ôn tập</div>
+            <div class="tab thongke-tab" onclick="openTab(event, 'thongke')">Thống kê ôn tập</div>
+        </div>
+        
+        <!-- Nội dung của từng tab -->
+        <div id="noidung" class="tab-content active">
+            <p>Đây là nội dung chi tiết của đề thi.</p>
+        </div>
+        <div id="ketqua" class="tab-content">
+            <table class="results-table">
+                <thead>
+                  <tr>
+                    <th>Người thi</th>
+                    <th>Điểm số</th>
+                    <th>Xếp loại</th>
+                    <th>Số câu đúng</th>
+                    <th>Số câu sai</th>
+                    <th>Tổng số câu hỏi</th>
+                    <th>Thời gian làm bài</th>
+                    <th>Thời gian hoàn thành</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="8" class="no-data-message" id="no-data">Không tìm thấy dữ liệu nào!</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="thongke" class="tab-content">
+             <h4 id="title-statistic-month"><!--thống kê theo tháng hiện tại--></h4> 
+            <canvas id="myChart" style="height: 540px;width: 1080px;"></canvas>
+        </div>     
+    </div>
+    <style>
+        .normal-result{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        font-size: larger;
+        gap: 10px;
+        color: #0000008f;
+        }
+        /* Tổng thể bảng */
+        .results-table {
+      width: 100%;
+      border-collapse: separate; /* Đảm bảo bảng có các đường viền riêng biệt */
+      border-spacing: 0; /* Xóa khoảng cách giữa các ô */
+      margin-top: 20px;
+      text-align: center;
+      border-top-left-radius: 10px; /* Bo góc trái trên */
+      border-top-right-radius: 10px; /* Bo góc phải trên */
+      overflow: hidden; /* Đảm bảo các góc bo tròn không bị cắt */
+      }
+      
+      .results-table thead{
+      font-size: 14px;
+      }
+      /* Các tiêu đề của bảng */
+      .results-table th {
+        background-color: #f8f9fa;
+        padding: 15px;
+      }
+      
+      /* Các ô dữ liệu của bảng */
+      .results-table td {
+      padding: 10px;
+      background-color: #f9f9f9;
+      }
+      
+      /* Đặc biệt cho dòng thông báo không có dữ liệu */
+      .no-data-message {
+      color: #777777a3;
+      font-style: italic;
+      text-align: center;
+      font-weight: 500;
+      }
+      
+      /* Đặt màu nền cho các ô khi có dữ liệu */
+      .results-table tbody tr:nth-child(odd) td {
+      background-color:white;
+      }
+      
+      /* Đặt border cho bảng */
+      .results-table{
+      border: 1px solid #ddd;
+      }
+      .results-table td {
+      border-top: 1px solid #ddd;
+      }
+      
+      </style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>  <!-- or moment -->
+
+<script src="/Notification/Notification.js"></script>
+<script src="/User/js/exam/check-expire-renew.js"></script>
+<script type="module" src="/User/js/exam/detailtopic-js.js"></script> 
+
+		<footer class="ftco-footer ftco-no-pt">
+			<div class="container">
+				<div class="row mb-5">
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">About</h2>
+							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+							<ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+								<li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+								<li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+								<li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+							<h2 class="ftco-heading-2">Help Desk</h2>
+							<ul class="list-unstyled">
+								<li><a href="#" class="py-2 d-block">Customer Care</a></li>
+								<li><a href="#" class="py-2 d-block">Legal Help</a></li>
+								<li><a href="#" class="py-2 d-block">Services</a></li>
+								<li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+								<li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+								<li><a href="#" class="py-2 d-block">Call Us</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">Recent Courses</h2>
+							<ul class="list-unstyled">
+								<li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+								<li><a href="#" class="py-2 d-block">Web Design</a></li>
+								<li><a href="#" class="py-2 d-block">Business Studies</a></li>
+								<li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+								<li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+								<li><a href="#" class="py-2 d-block">Web Developer</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md pt-5">
+						<div class="ftco-footer-widget pt-md-5 mb-4">
+							<h2 class="ftco-heading-2">Have a Questions?</h2>
+							<div class="block-23 mb-3">
+								<ul>
+									<li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+									<li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
+									<li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+
+						<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+							Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+						</div>
+					</div>
+				</div>
+			</footer>
+			
+			
+
+			<!-- loader -->
+			<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+			<script src="/User/Static/js/jquery.min.js"></script>
+			<script src="/User/Static/js/jquery-migrate-3.0.1.min.js"></script>
+			<script src="/User/Static/js/popper.min.js"></script>
+			<script src="/User/Static/js/bootstrap.min.js"></script>
+			<script src="/User/Static/js/jquery.easing.1.3.js"></script>
+			<script src="/User/Static/js/jquery.waypoints.min.js"></script>
+			<script src="/User/Static/js/jquery.stellar.min.js"></script>
+			<script src="/User/Static/js/owl.carousel.min.js"></script>
+			<script src="/User/Static/js/jquery.magnific-popup.min.js"></script>
+			<script src="/User/Static/js/jquery.animateNumber.min.js"></script>
+			<script src="/User/Static/js/bootstrap-datepicker.js"></script>
+			<script src="/User/Static/js/scrollax.min.js"></script>
+			<script src="/User/Static/js/main.js"></script>
+			
+            <script>
+                function openTab(event, tabName) {
+                    var i, tabcontent, tablinks;
+            
+                    // Ẩn tất cả các tab content
+                    tabcontent = document.getElementsByClassName("tab-content");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                        tabcontent[i].classList.remove("active");
+                    }
+            
+                    // Bỏ kích hoạt tất cả các tab
+                    tablinks = document.getElementsByClassName("tab");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].classList.remove("active");
+                    }
+            
+                    // Hiển thị tab được chọn và thêm lớp active
+                    document.getElementById(tabName).style.display = "block";
+                    document.getElementById(tabName).classList.add("active");
+                    event.currentTarget.classList.add("active");
+                }
+            </script>
+            <style>
+                .download-button:focus {
+                    outline: none;
+                }
+
+                .exam-meta i{
+                    color: #6f58c9;
+                    margin-right: 15px;
+                }
+                .start-exam-button:focus{
+                    text-decoration: none;
+                    color: white;
+                    outline: none !important;
+                }
+                .detail-topic-button{
+                    width: 100%;
+                    text-align: center;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 15px;
+                    padding: 6px 16px;
+                }
+            .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover, .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:focus {
+                color: #4986fc;
+            }
+                /* Tổng thể */
+        .main-container {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        
+        /* Container cho Thông tin đề thi */
+        .info-container {
+            flex: 2;
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 60px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-container h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-family: sans-serif;
+        }
+        .contentex-container{
+            flex: 2;
+            background-color: #fff;
+            max-width: 1160px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        .exam-info {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .exam-image img {
+            width: 450px;
+            height: 250px;
+            border-radius: 8px;
+            object-fit: cover;
+    }
+        
+        .exam-details h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .exam-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: #828282;
+            margin-top: 8px;
+        }
+        
+        .author-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 1px solid #80808042;
+        }
+        
+        .exam-stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            color: #828282;
+            font-size: 14px;
+        }
+        
+        .exam-stats i {
+            color: #6f58c9;
+            margin-right: 5px;
+        }
+        
+        .exam-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .start-exam-button {
+            background-image: linear-gradient(90.57deg, rgb(62, 101, 254) 0%, rgb(210, 60, 255) 100%) !important;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+           
+        }
+        
+        .start-exam-button:hover {
+            background-color: #5a47a7;
+            color:white;
+        }
+        .download-button:hover{
+            color:white;
+        }
+        .download-button {
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            border:none;
+        }
+        
+        .download-button:hover {
+            background-color: #218838;
+        }
+        
+        /* Container cho Chia sẻ đề thi */
+        .share-container {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 50px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        
+        .share-container h3 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .social-icon {
+            font-size: 20px;
+            color: #6f58c9;
+            text-decoration: none;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .copy-link-button,
+        .qr-code-button {
+            padding: 8px 20px;
+            font-size: 14px;
+            border-radius: 5px;
+            background-color: #6f58c9;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .copy-link-button:hover,
+        .qr-code-button:hover {
+            background-color: #5a47a7;
+        }
+        .tab-container {
+                display: flex;
+                border-bottom: 1px solid #ccc;
+               
+                margin-bottom: 15px;
+            }
+        
+            .tab {
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 16px;
+                color: #555;
+                font-family: sans-serif;
+            }
+        
+            /* Tab được chọn */
+            .tab.active {
+                color: #007bff;
+                font-weight: bold;
+                border-bottom: 3px solid #007bff;
+            }
+        
+            /* Nội dung của từng tab */
+            .tab-content {
+                display: none;
+                padding: 5px 20px;
+                font-size: 16px;
+            }
+        
+            .tab-content.active {
+                display: block;
+            }
+            </style>
+        
+		</body>
+		</html>

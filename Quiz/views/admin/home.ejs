@@ -1,0 +1,282 @@
+<script src="/Admin/examjs/checkauthAdmin.js"></script>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-stats">
+                <div class="card-stats-title">
+                    Order Statistics
+                </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <div class="card-stats-items"  id="order-figure" style="justify-content: center;">
+                    
+                </div>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-archive"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Orders</h4>
+                </div>
+                <div class="card-body" id="totalorder-figure">
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card card-statistic-2">
+            <div class="card-chart">
+                <canvas id="balance-chart" height="80"></canvas>
+            </div>
+            <div class="card-icon shadow-primary bg-primary">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="card-wrap">
+                <div class="card-header">
+                    <h4>Total Income</h4>
+                </div>
+                <div class="card-body" id="income">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    async function LoadStatisticsOrder() {
+        const tokenAdmin=localStorage.getItem('tokenAdmin');
+        try{
+           const response= await fetch('/api/figure/orderstatistic',{
+            method:'GET',
+            headers:{ 
+                                    'Content-Type': 'application/json',
+                                   'Authorization': 'Bearer ' + tokenAdmin
+                     },
+           });
+           const result= await response.json();
+           console.log(result.data);
+           if(result.success&&result.data)
+           {
+            const orderfigure=document.getElementById('order-figure');
+            orderfigure.innerHTML=`
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">${result.data.orderwaiting}</div>
+                        <div class="card-stats-item-label">Waiting</div>
+                    </div>                   
+                    <div class="card-stats-item">
+                        <div class="card-stats-item-count">${result.data.orderconfirm}</div>
+                        <div class="card-stats-item-label">Completed</div>
+                    </div>
+            `;
+            const totalorderfigure=document.getElementById('totalorder-figure');
+            totalorderfigure.innerHTML=`${result.data.totalorder}`;
+            const income=document.getElementById('income');
+            income.innerHTML=`<span style="font-family: monospace;"> ${result.data.income[0].income.toLocaleString('vi-VN')} VNĐ</span>`;
+           }
+        }
+        catch (error)
+        {
+         console.error();
+        }  
+    }
+    LoadStatisticsOrder();
+</script>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Top Countries</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="text-title mb-2">July</div>
+                        <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">Indonesia</div>
+                                    <div class="text-small text-muted">3,282 <i class="fas fa-caret-down text-danger"></i></div>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/my.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">Malaysia</div>
+                                    <div class="text-small text-muted">2,976 <i class="fas fa-caret-down text-danger"></i></div>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/us.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">United States</div>
+                                    <div class="text-small text-muted">1,576 <i class="fas fa-caret-up text-success"></i></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 mt-sm-0 mt-4">
+                        <div class="text-title mb-2">August</div>
+                        <ul class="list-unstyled list-unstyled-border list-unstyled-noborder mb-0">
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/id.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">Indonesia</div>
+                                    <div class="text-small text-muted">3,486 <i class="fas fa-caret-up text-success"></i></div>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/ps.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">Palestine</div>
+                                    <div class="text-small text-muted">3,182 <i class="fas fa-caret-up text-success"></i></div>
+                                </div>
+                            </li>
+                            <li class="media">
+                                <img class="img-fluid mt-1 img-shadow" src="/Admin/dist/assets/modules/flag-icon-css/flags/4x3/de.svg" alt="image" width="40">
+                                <div class="media-body ml-3">
+                                    <div class="media-title">Germany</div>
+                                    <div class="text-small text-muted">2,317 <i class="fas fa-caret-down text-danger"></i></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>Orders</h4>
+                <div class="card-header-action">
+                    <a href="/admin/order" class="btn btn-danger">View More <i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive table-invoice">
+                    <table class="table table-striped table-order-record">
+                        <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>State</th>
+                            <th>Date</th>
+                            <th>Check out</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                       <tr>
+                        <td>1</td>
+                        <td class="font-weight-600">HOTEN</td>
+                        <td style="text-align:center;"><div class="badge badge-success">ã giao hàng thành công</div></td>
+                        <td>25/11/2024</td>
+                        <td>
+                         400000 đ
+                        </td>
+                    </tr>
+                </tbody>           
+                    </table>
+                </div>
+                <script>
+                    async function LoadUpgradeRecord() {
+                        const tokenAdmin = localStorage.getItem('tokenAdmin');
+                        try {
+                            const response = await fetch('/api/upgrade/lstupgr', {
+                                method: 'GET',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + tokenAdmin
+                                }
+                            });
+                            const result = await response.json();
+                            if (result.success && result.data) {
+                                const record=result.data.slice(0, 5);
+                                const tbody = document.querySelector('.table-order-record tbody');
+                                tbody.innerHTML = '';
+                                let state=null;
+                                record.forEach(data => {
+                                    const row = document.createElement('tr');
+                                    if(data.xacnhan){
+                                        state='Confirmed';
+                                    } else{
+                                        state='Waiting...';
+                                    }
+                                    row.innerHTML = `
+                                      <td>${data.orderid}</td>
+                                      <td>${data.nguoidung.hoten}</td>                                   
+                                      <td style="text-align:center;"><div class="badge badge-success">${state}</div></td>
+                                      <td>${data.ngaythanhtoan}</td>
+                                      <td>${data.loaitaikhoan.gia.toLocaleString('vi-VN')} VNĐ</td>
+                                `;
+                                    tbody.appendChild(row);
+                                });
+                            }
+                            else {
+                                console.log(result.error);
+                            }
+                        }
+                        catch (error) {
+                            console.error("Error:", error);
+                        }
+                    }
+                    document.addEventListener('DOMContentLoaded', function () {
+                        LoadUpgradeRecord();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card card-hero">
+            <div class="card-header">
+                <div class="card-icon">
+                    <i class="far fa-question-circle"></i>
+                </div>
+                <h4>14</h4>
+                <div class="card-description">Customers need help</div>
+            </div>
+            <div class="card-body p-0">
+                <div class="tickets-list">
+                    <a href="#" class="ticket-item">
+                        <div class="ticket-title">
+                            <h4>My order hasn't arrived yet</h4>
+                        </div>
+                        <div class="ticket-info">
+                            <div>Laila Tazkiah</div>
+                            <div class="bullet"></div>
+                            <div class="text-primary">1 min ago</div>
+                        </div>
+                    </a>
+                    <a href="#" class="ticket-item">
+                        <div class="ticket-title">
+                            <h4>Please cancel my order</h4>
+                        </div>
+                        <div class="ticket-info">
+                            <div>Rizal Fakhri</div>
+                            <div class="bullet"></div>
+                            <div>2 hours ago</div>
+                        </div>
+                    </a>
+                    <a href="#" class="ticket-item">
+                        <div class="ticket-title">
+                            <h4>Do you see my order?</h4>
+                        </div>
+                        <div class="ticket-info">
+                            <div>Syahdan Ubaidillah</div>
+                            <div class="bullet"></div>
+                            <div>6 hours ago</div>
+                        </div>
+                    </a>
+                    <a href="features-tickets.html" class="ticket-item ticket-more">
+                        View All <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

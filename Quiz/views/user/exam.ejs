@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Làm bài thi</title>
+    <link rel="stylesheet" href="/User/css/exam/exam-style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <h3 id="topic-name-exam" data-topic-id="<%= topicId %>" ><!-- Tên đề --></h3>
+            <div class="info-item" id="mode-test">
+                <!-- Chế độ làm bài -->
+            </div>
+            <div class="info-item">
+                <strong>Thời gian làm bài thi:</strong>
+                <div id="time-display" style="margin-top: 10px;">00 : 00 : 00</div>
+            </div>
+            <button id="back-button">Trở về</button>
+        </div>
+
+        <!-- Middle Panel -->
+        <div class="middle-panel">
+            <div style="
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;">
+            <h4 id="question-number" style="margin: 0;"><!-- Câu 1 --></h4> 
+            <div id="question-text">
+                <!-- Câu hỏi -->
+            </div>
+            </div>
+            <div class="answer-options" id="answer-options">
+                <label><input type="radio" name="answer"> <!-- Đáp án --></label>
+            </div>
+            <div class="navigation-buttons">
+                <button id="prev-button">Trước</button>
+                <button id="next-button">Sau</button>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <h4>Mục lục câu hỏi</h4>
+            <div class="question-list" id="question-list">
+                <button class="active">1</button>
+            </div>
+            <button id="submit-button">Nộp bài</button>
+        </div>
+    </div>
+
+    <!-- Modal thông báo kết quả -->
+<div id="resultModal" class="modal">
+    <div class="modal-content">
+      <h2>Kết quả bài thi</h2>
+      <p id="result-message"></p>
+      <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+      <button id="test-again-button" class="button-in-modal">Làm lại bài thi</button>
+      <button id="complete-button"  class="button-in-modal">Hoàn tất bài thi</button>
+    </div>
+    </div>
+  </div>
+  <script src="/User/js/exam/exam.js"></script>
+</body>
+</html>

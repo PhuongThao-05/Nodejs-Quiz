@@ -1,0 +1,93 @@
+
+.chat-title{
+    background-color: #c8e5ff;
+    border: 1px solid #c8e5ff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.header-chatbox{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: monospace;
+    text-align: center;
+    color: #091060;
+}
+.chat-container {
+    margin:auto;
+    width: 600px; /* Chiều rộng khung chat */
+    height: 500px; /* Chiều cao khung chat */
+    border: 1px solid #cccccc9e;
+    border-radius: 10px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.chat-box {
+    flex: 1; /* Phần khung chat chiếm toàn bộ không gian trống */
+    padding: 10px;
+    overflow-y: auto; /* Cuộn khi nội dung quá dài */
+    background: #f9f9f987;
+}
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+.message {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.message .bubble {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.chat-input input {
+    flex: 1; /* Input chiếm toàn bộ chiều rộng */
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.chat-input button {
+    padding: 10px 15px;
+    background-color: #62b5ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}

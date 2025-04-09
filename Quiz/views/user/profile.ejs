@@ -1,0 +1,179 @@
+<link rel="stylesheet" href="/Notification/Notification.css">
+<div id="notification" class="notification" style="display: none;">
+    <span id="notification-message"></span>
+    <button id="close-notification">×</button>
+</div>
+<div class="profile-wrapper">
+    <div class="profile-left">
+        <img src="/User/Static/images/login.png" alt="Illustration" class="profile-image">
+    </div>
+    <div class="profile-right">
+        <p style="margin-bottom: 16px;font-size: 1.5rem; font-weight: 600;">Hồ sơ của bạn</p>   
+        <form class="profile-form">
+            <div class="profile-form-group">
+                <label for="profile-username">Username <span class="required">*</span></label>
+                <input type="text" class="profile-input" id="profile-username" placeholder="Enter your username" required readonly>
+            </div>
+            <div class="profile-form-group">
+                <label for="profile-fullname">Họ tên <span class="required">*</span></label>
+                <input type="text" class="profile-input" id="profile-fullname" placeholder="Enter your full name" required>
+            </div>
+            <div class="profile-form-group">
+                <label for="profile-position">Chức danh <span class="required">*</span></label>
+                <select class="profile-input" id="profile-position" name="profile-position">
+                    <option value="Học sinh">Học sinh</option>
+                    <option value="Giáo viên">Giáo viên</option>
+                </select>
+            </div>
+            <div class="profile-form-group">
+                <label for="profile-email">Email <span class="required">*</span></label>
+                <input type="email" class="profile-input" id="profile-email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit" class="profile-save-button">Save</button>
+        </form>
+    </div>
+</div>
+<script src="/Notification/Notification.js"></script>
+<script type="module">
+      import { checkTokenAndExecute } from '/User/js/exam/check_authentication.js';
+                    const token = localStorage.getItem('token');
+                    
+                    async function loadUserInfo() {
+                        try {
+                            const response = await
+                            fetch(`/api/user/userinfo`, {
+                                                    method: 'GET',
+                                                    headers: { 
+                                                    'Content-Type': 'application/json',
+                                                    'Authorization': 'Bearer ' + token
+                                                    }
+                                                });
+                            const user = await response.json();
+
+                            if (user && user.data) {
+                                // Điền thông tin vào các trường
+                                document.getElementById('profile-username').value = user.data.username;
+                                document.getElementById('profile-fullname').value = user.data.hoten;
+                                const positionValue = user.data.chucdanh; // Cập nhật để lấy đúng giá trị
+                                const positionSelect = document.getElementById('profile-position');
+                                positionSelect.value = positionValue; // Gán giá trị vào select
+                                document.getElementById('profile-email').value = user.data.email;
+                            }
+                        } catch (error) {
+                            console.error('Lỗi khi tải thông tin người dùng:', error);
+                        }
+                    }
+                    window.onload = () => {
+                        checkTokenAndExecute(loadUserInfo); // Gọi hàm để lấy và hiển thị thông tin người dùng
+                    };
+                    document.querySelector(".profile-save-button").addEventListener('click', async function(event) {
+                        event.preventDefault();
+                        const hoten = document.getElementById('profile-fullname').value;
+                        const chucdanh = document.getElementById('profile-position').value;
+                        const email = document.getElementById('profile-email').value;
+                        if (!token) {
+                            return;
+                        }
+                         // Kiểm tra các trường
+                        if (!hoten || !chucdanh || !email) {
+                            showNotification("Tất cả các trường đều phải được điền đầy đủ!", false); // Thông báo lỗi
+                            return; // Dừng hàm nếu có trường bị rỗng
+                        }
+                        try {
+                            const response = await fetch(`/api/user/updateuser`, {
+                                method: 'PUT',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': 'Bearer ' + token
+                                },
+                                body: JSON.stringify({ hoten,chucdanh,email })
+                            });
+
+                            const result = await response.json();
+                            if (result.success) {
+                               showNotification("Cập nhật thông tin thành công!",true);
+                            } else {
+                                showNotification("Cập nhật thất bại: " + result.message,false);
+                            }
+                        } catch (error) {
+                            console.error("Lỗi khi cập nhật:", error);
+                            alert("Đã xảy ra lỗi khi cập nhật.");
+                        }
+                    });
+</script>
+<style>
+    .profile-wrapper {
+        display: flex;
+        max-width: 1200px; /* Make the container wider */
+        width: 100%;
+        height: 100%;
+        margin: 20px auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-left {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #e0f7fa;
+        border-radius: 8px 0 0 8px;
+    }
+
+    .profile-image {
+        width: 100%;
+       
+        border-radius: 8px;
+    }
+
+    .profile-right {
+        flex: 2; /* Increase the form area width */
+        padding: 40px 20px;
+    }
+
+    .profile-form-group {
+        margin-bottom: 20px;
+    }
+
+    .profile-form-group label {
+        font-weight: bold;
+        color: #555;
+    }
+
+    .required {
+        color: red;
+    }
+
+    .profile-input {
+        padding: 12px;
+        width: 100%;
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+        transition: border-color 0.3s ease;
+    }
+
+    .profile-input:focus {
+        border-color: blue;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .profile-save-button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        background: linear-gradient(90deg, rgb(27, 73, 254) 15%, rgb(199, 11, 255) 100%);
+        border: none;
+        border-radius: 5px;
+        transition: background 0.3s ease;
+    }
+
+    .profile-save-button:hover {
+        background: linear-gradient(90deg, rgb(209, 27, 254) 15%, rgb(104, 66, 253) 100%);
+    }
+</style>

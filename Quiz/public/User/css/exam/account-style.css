@@ -1,0 +1,149 @@
+.my-advatages{
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #26c766;
+    background-color: #a8ffa857;
+    padding: 20px;
+    border-radius: 10px;
+}
+ .features {
+    margin-top: 10px;
+    list-style: none;
+    padding-left: 30px;
+}
+.features li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 1.15rem;
+    line-height: 1.5;
+    padding: 5px 0;
+}
+.icon-benefit-list{
+width: 1em;
+height: 1em;
+display: inline-block;
+fill: currentcolor;
+flex-shrink: 0;
+font-size: 1.5rem;
+transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1);
+color: #26c766;
+margin-right: 10px;
+}
+.usage-container {
+min-width: 60%;
+margin: 16px 25px;
+padding: 20px;
+background-color: #fff;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+display: flex;
+gap: 40px;
+height: 100%;
+}
+
+/* Left section: Current plan information */
+.current-plan {
+width: 45%;
+padding: 15px;
+background-color: #f0f4ff73;
+border-radius: 10px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+.plan-header {
+    background-color: #e6eaff;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.plan-header .plan-title {
+    font-size: 1.5rem;
+    color: #5065ff;
+    display: block;
+    font-weight: bold;
+    margin: 10px;
+    border-color: #eee;
+}
+
+.plan-header p {
+    color: #333;
+    font-size: 1.1rem;
+    margin: 10px;
+}
+
+.feature-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    padding: 5px 0;
+}
+
+.feature-list li::before {
+    content: "✔️";
+    color: #28a745;
+    margin-right: 8px;
+}
+
+/* Right section: Usage levels */
+.usage-section {
+    width: 55%;
+}
+
+.usage-section h3 {
+font-size: 2rem;
+color: #333;
+margin: 10px 0;
+font-weight: 600;
+}
+
+.usage-item {
+font-size: 1.1rem;
+color: #000;
+margin: 20px 0px;
+}
+
+.progress-bar {
+width: 100%;
+height: 12px;
+background-color: #e0e0e094;
+border-radius: 4px;
+overflow: hidden;
+margin-top: 5px;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #5065ff;
+}
+
+/* Upgrade button */
+.upgrade-button {
+display: block;
+width: 100%;
+text-align: center;
+padding: 15px;
+color: white;
+background-color: #a55dff;
+border-radius: 8px;
+font-weight: bold;
+font-size: 1.2rem;
+}
+.upgrade-button:hover{
+   background: linear-gradient(90deg, rgb(27, 73, 254) 15%, rgb(199, 11, 255) 100%);
+   color: white;
+   text-decoration: none;
+}

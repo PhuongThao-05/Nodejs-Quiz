@@ -1,0 +1,142 @@
+<div class="section-header" style="justify-content:space-between;">
+    <h1>Confirm Order</h1>
+    <div>
+        <a href="/admin/order" style="text-decoration: none; font-size: 16px;">Back to List Order <i class="fas fa-arrow-alt-circle-right" style="font-size: 16px;"></i></a>
+    </div>
+</div>
+<div class="section-body">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Thông tin đơn hàng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="media-body order-info">
+                        <!-- dữ liệu đơn hàng -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Chi tiết đơn hàng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="media-body order-details">
+                        <!-- dữ liệu chi tiết -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Trạng thái đơn hàng</h4>
+                    <div class="card-header-action">
+                        <a href="#" id="confirm-require" class="btn btn-danger createStateLink btn-act">Confirm</a>
+                    </div>
+                </div>
+                <div class="card-body state-order">
+                    <!-- state -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="confirmOrderModal" tabindex="-1" role="dialog" aria-labelledby="confirmOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmOrderModalLabel" style="font-family: sans-serif;">Xác nhận nâng cấp tài khoản</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-top: 20px !important; margin: auto; font-weight: 600; color: red; font-size: 16px; padding-bottom: 0; ">
+                Xác nhận nâng cấp tài khoản này không?
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer" style=" padding-right: 0px;">
+                    <button type="button" class="btn btn-secondary cancelOrderNo" data-dismiss="modal" style="width:100px;">Không</button>
+                    <button type="button" id="btnconfirmupgrade" class="btn btn-danger" style="width:100px;">Đồng ý</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="module" src="/Admin/examjs/confirmupgrade-js.js"></script>
+<style>
+ .benefit-package {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .icon-benefit-list {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentcolor;
+        flex-shrink: 0;
+        font-size: 1.5rem;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1);
+        color: #26c766;
+    }
+
+    #pro-plan {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        list-style: none;
+        padding: 0;
+    }
+    dt{
+        font-weight: 500;
+        font-family: system-ui;
+    }
+    .card .card-header h4{
+    font-family: system-ui;
+    }
+    #pro-plan li{
+    font-size: 14px;
+    font-family: system-ui;
+    font-weight: 500;
+    color: #257728;
+    padding: 5px 0;
+    }
+    #confirmOrderModal {
+        background-color: rgba(0, 0, 0, 0.5); /* Màu nền đen với độ trong suốt */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1050 !important;
+    }
+
+    .modal-backdrop {
+        display: none !important;
+    }
+    dl {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 10px;
+        gap: 20px;
+    }
+
+    .btn-act {
+        color: black;
+        background-color: PaleGreen;
+        border: 1px solid PaleGreen;
+        box-shadow: 0 2px 6px #bdf5bd !important;
+    }
+
+        .btn-act:active, btn-act:focus, .btn-act:focus:active, .btn-act:hover {
+            background-color: #7bea7b !important;
+            box-shadow: none !important;
+        }
+</style>
+

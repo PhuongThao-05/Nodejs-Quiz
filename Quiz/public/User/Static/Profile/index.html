@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>EduQuiz Studio</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="vendors/feather/feather.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="vendors/datatables.net-bs4/dataTables.bootstrap4.css">
+  <link rel="stylesheet" href="vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" type="text/css" href="js/select.dataTables.min.css">
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="images/graduation-cap.png" />
+  <script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container-scroller">
+    <!-- navbar ngang -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="images/graduation-cap.png" class="mr-2" alt="logo"/>
+        <span style="    font-weight: 600;">
+          EduQuiz
+        </span></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="images/graduation-cap.png" alt="logo" style="    width: 100%;"/></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item">
+           <a href="#" class="add-topic"> <i class="fa-regular fa-square-plus" style="font-size: 1.1rem;"></i> Tạo đề thi</a>
+          </li>
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <img src="images/cute-little-schoolboy-graduation.png" alt="profile" style="border: 1px solid #948e8e57;"/>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item">
+                <i class="ti-settings text-primary"></i>
+                Hồ sơ
+              </a>
+              <a class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+      <!-- nav dọc-->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="parent-item">
+                <a class="nav-link toggle-submenu parent-a" href="#" data-toggle="collapse">
+                  <div>
+                    <i class="fa-regular fa-user menu-icon" style="font-size: 20px;"></i>
+                    <span class="menu-title" style="font-size: 1rem;">Cá nhân</span>
+                  </div>
+                    <i class="fa-solid fa-chevron-down arrow-icon" style="font-size: 13px;margin-left: auto;"></i>
+                </a>
+                <ul class="submenu" style="display: block;">  <!-- Đặt submenu hiển thị ngay từ đầu -->
+                    <li class="submenu-item"><a class="nav-link link-feature" href="#" style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                        <i class="fa-regular fa-star"></i> Thư viện của tôi</a>
+                    </li>
+                    <li class="submenu-item"><a class="nav-link link-feature" href="#" style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                      <i class="fa-solid fa-list"></i> Kết quả của tôi</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" parent-item">
+                <a class="nav-link toggle-submenu parent-a" href="#" data-toggle="collapse">
+                  <div>
+                    <i class="fa-solid fa-graduation-cap menu-icon" style="font-size: 20px;"></i>
+                    <span class="menu-title" style="font-size: 1rem;">Quản lý</span>
+                  </div>
+                    <i class="fa-solid fa-chevron-down arrow-icon" style="font-size: 13px;margin-left:auto;"></i>
+                </a>
+                <ul class="submenu" style="display: block;">  <!-- Đặt submenu hiển thị ngay từ đầu -->
+                    <li class="submenu-item"><a class="nav-link link-feature" href="#" style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                        <i class="icon-paper"></i> Đề thi</a>
+                    </li>
+                    <li class="submenu-item"><a class="nav-link link-feature" href="#" style="display: flex;flex-direction: row;align-items: center;gap: 10px;margin-left: 20px;">
+                        <i class="fa-solid fa-crown"></i> Gói dịch vụ</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a class="nav-link parent-a" href="#">
+                    <i class="fa-regular fa-message menu-icon" style="font-size: 20px;"></i>
+                    <span class="menu-title" style="font-size: 1rem;">Hỗ trợ tư vấn</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <style>
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+    
+        .active-feature {
+          background: #d4defa;
+          border-radius: 10px;
+        }
+        .sub-feature{
+          color: black !important;
+        }
+        .arrow-icon {
+            transition: transform 0.3s ease;
+        }
+        .parent-a{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+          width: 100%;
+          color: #6C7383;
+        }
+        .link-feature{
+          color: #6C7383;
+        }
+        .add-topic{
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-weight: 500;
+          color: rgb(255, 255, 255);
+          background-color: rgb(62, 101, 254);
+          box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+          text-transform: none;
+          font-size: 0.875rem;
+          background-image: linear-gradient(90.57deg, rgb(62, 101, 254) 0%, rgb(210, 60, 255) 100%) !important;
+          margin: 0px;
+          text-decoration: none;
+          padding: 6px 16px;
+          transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1), border-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 4px;
+        }
+        .add-topic:hover{
+          text-decoration: none;
+          background: linear-gradient(90deg, rgb(27, 73, 254) 15%, rgb(199, 11, 255) 100%);
+          color: white;
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+        }
+        .submenu-item{
+          margin: 5px 2px;
+        }
+  
+    </style>
+    
+    <script>
+        // Lấy tất cả các mục cha có class 'parent-item'
+        const parentItems = document.querySelectorAll('.parent-item');
+    
+        // Lặp qua từng mục cha và gán sự kiện click
+        parentItems.forEach(item => {
+            const submenu = item.querySelector('.submenu');
+            const arrowIcon = item.querySelector('.arrow-icon');
+    
+            // Xử lý khi nhấn vào mục cha để ẩn/hiện submenu
+            item.querySelector('.toggle-submenu').addEventListener('click', function(event) {
+                event.preventDefault(); // Ngăn chặn tải lại trang
+    
+                // Kiểm tra trạng thái hiển thị của submenu và thay đổi hiển thị/icon
+                if (submenu.style.display === 'block') {
+                    submenu.style.display = 'none';
+                    arrowIcon.classList.remove('fa-chevron-down');
+                    arrowIcon.classList.add('fa-chevron-right');
+                } else {
+                    submenu.style.display = 'block';
+                    arrowIcon.classList.remove('fa-chevron-right');
+                    arrowIcon.classList.add('fa-chevron-down');
+                }
+            });
+        });
+    
+        // Thêm sự kiện click cho các mục 'submenu-item' để thêm màu nền
+        const submenuItems = document.querySelectorAll('.submenu-item');
+        submenuItems.forEach(subItem => {
+            subItem.addEventListener('click', function(event) {
+                event.stopPropagation(); // Ngăn chặn sự kiện click lan lên các phần tử cha
+                // Xóa lớp 'active' ở tất cả các submenu-item
+                submenuItems.forEach(item => {
+                    item.classList.remove('active-feature');
+                    // Xóa class 'sub-feature' từ thẻ <a> trong thẻ <li>
+                    const link = item.querySelector('.link-feature');
+                    if (link) {
+                        link.classList.remove('sub-feature');
+                    }
+                });
+
+                // Thêm lớp 'active' vào submenu-item hiện tại
+                this.classList.add('active-feature');
+
+                // Thêm class 'sub-feature' cho thẻ <a> bên trong thẻ <li> hiện tại
+                const link = this.querySelector('.link-feature');
+                if (link) {
+                    link.classList.add('sub-feature');
+                }
+            });
+        });
+    </script>
+    
+     
+    </div>   
+  </div>
+  <!-- plugins:js -->
+  <script src="vendors/js/vendor.bundle.base.js"></script>
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <script src="vendors/chart.js/Chart.min.js"></script>
+
+  <!-- End plugin js for this page -->
+  <script src="js/template.js"></script>
+  <script src="js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
+

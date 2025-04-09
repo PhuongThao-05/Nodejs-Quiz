@@ -1,0 +1,19 @@
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 10000; /* Để thông báo luôn hiển thị trên cùng */
+    transition: opacity 0.5s;
+}
+
+.notification button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}

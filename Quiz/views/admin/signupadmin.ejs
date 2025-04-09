@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Sign up Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="/User/images/graduation-cap.png" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/Admin/Login/css/style.css">
+</head>
+<body class="img js-fullheight" style="background-image: url(/Admin/Login/images/bg.jpg);">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-5">
+                    <h2 class="heading-section">Create admin account</h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-4">
+                    <div class="login-wrap p-0">
+                        <form id="signup-form">
+                            <div id="errorMessage" class="text-danger" style="color: #ffcc99!important;text-align: center;">
+                            </div>
+                        
+                            <div class="form-group">
+                                <input type="text" name="USERNAME" class="form-control" id="username-field" placeholder="Username" />
+                            </div>
+                        
+                            <div class="form-group">
+                                <input type="password" name="PASSWORD" class="form-control" id="password-field" placeholder="Password" />
+                                <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                            </div>
+                        
+                            <div class="form-group">
+                                <button type="submit" class="form-control btn btn-primary submit px-3">Sign Up</button>
+                            </div>
+                        
+                            <div class="form-group" style="text-align: center;">
+                                    <a href="/admin/login" style="color: #fff"> Do you have an account? Sign in now</a>
+                            </div>
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username-field").value;
+            const password = document.getElementById("password-field").value;
+
+            try {
+                const response = await fetch('/api/signupadmin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password})
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert(result.message); 
+                    window.location.href = '/admin/login'; 
+                } else {
+                    document.getElementById('errorMessage').textContent = result.message || 'Đã xảy ra lỗi';
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Đã xảy ra lỗi khi đăng ký.");
+            }
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/Admin/Login/js/jquery.min.js"></script>
+    <script src="/Admin/Login/js/popper.js"></script>
+    <script src="/Admin/Login/js/bootstrap.min.js"></script>
+    <script src="/Admin/Login/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<link rel="stylesheet" href="/User/css/question-style.css">
+<!-- jQuery (cần thiết cho Summernote) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Summernote CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+<!-- Summernote JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
+<link rel="stylesheet" href="/Notification/Notification.css">
+<div id="notification" class="notification" style="display: none;">
+    <span id="notification-message"></span>
+    <button id="close-notification">×</button>
+</div>
+<div class="container-editques" style="margin-top: 15px;margin-bottom: 20px;">
+        <div style="display: flex;flex-direction: row;gap: 15px;    align-items: flex-start;">
+            <!-- Sidebar for Question List -->
+            <div class="col-md-4" style="background-color: white;padding: 20px;    border-radius: 6px;">
+                <h5>Danh mục câu hỏi</h5>
+                <div style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                <button class="btn btn-ques" onclick="ResetData()">+ Thêm câu hỏi</button>
+                <button class="btn btn-ques btn-delques" id="deleteQuestionButton" style="background-color: rgb(211, 47, 47);" disabled>Xoá câu hỏi</button>
+                </div>
+                <div style="margin-top: 10px;" id="question-container">
+                <!-- hiển thị từng câu hỏi  -->
+                </div>
+            </div>
+
+            <!-- Main Content for Question Editing -->
+            <div class="col-md-8"  style="background-color: white;padding: 20px;    border-radius: 6px;">
+                <h5>Chỉnh sửa câu hỏi</h5>
+                <form id="form-ques-ans">
+                    <div class="form-group">
+                        <label class="text-editques">Soạn câu hỏi</label>
+                        <textarea class="summernote" name="data-question" data-placeholder="Nhập nội dung câu hỏi" required></textarea>
+                    </div>
+                    <label class="text-editques">Câu trả lời</label><br>
+                    <div class="form-group answer-item">
+                        <div class="form-addans">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" style="margin-left: auto;" name="dapan" id="answer1">
+                            <label class="form-check-label text-editques" for="answer1" style="margin-bottom: 0px;">Đáp án 1</label>
+                        </div>
+                        <button type="button" class="del-answer">Xoá đáp án</button>
+                    </div>
+                    <textarea class="summernote answer-content" name="data" data-placeholder="Nhập nội dung đáp án" required></textarea>
+                    </div>
+                    <div class="form-group answer-item">
+                        <div class="form-addans">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" style="margin-left: auto;" name="dapan" id="answer2">
+                            <label class="form-check-label text-editques" for="answer2" style="margin-bottom: 0px;">Đáp án 2</label>
+                        </div>
+                        <button type="button" class="del-answer">Xoá đáp án</button>
+                    </div>
+                    <textarea class="summernote answer-content" name="data" data-placeholder="Nhập nội dung đáp án" required></textarea>
+                    </div>
+                    <div class="form-group answer-item">
+                        <div class="form-addans">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" style="margin-left: auto;" name="dapan" id="answer3">
+                            <label class="form-check-label text-editques" for="answer3" style="margin-bottom: 0px;">Đáp án 3</label>
+                        </div>
+                        <button type="button" class="del-answer">Xoá đáp án</button>
+                    </div>
+                    <textarea class="summernote answer-content" name="data" data-placeholder="Nhập nội dung đáp án" required></textarea>
+                    </div>
+                    <div class="form-group answer-item">
+                        <div class="form-addans">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" style="margin-left: auto;" name="dapan" id="answer4">
+                            <label class="form-check-label text-editques" for="answer4" style="margin-bottom: 0px;">Đáp án 4</label>
+                        </div>
+                        <button type="button" class="del-answer">Xoá đáp án</button>
+                    </div>
+                    <textarea class="summernote answer-content" name="data" data-placeholder="Nhập nội dung đáp án" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="createnewques" class="btn-createnewques">+ Thêm đáp án</button> 
+                    </div>
+                    <div style="display: flex;gap: 5px; justify-content: flex-end;">
+                    <button type="button" id="saveQuestionButton" class="btn-saveques">Lưu câu hỏi</button>
+                    <button type="button" id="updateQuestionButton" class="btn-saveques" style="display: none;">Cập nhật câu hỏi</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="/Notification/Notification.js"></script>
+    <script src="/User/js/edit-question-and-answer.js"></script>
+

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EduQuiz</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/User/Static/css/animate.css">
+
+    <link rel="stylesheet" href="/User/Static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/User/Static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/User/Static/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/User/Static/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/User/Static/css/jquery.timepicker.css">
+    <link rel="shortcut icon" href="/User/images/graduation-cap.png" />
+
+    <link rel="stylesheet" href="/User/Static/css/flaticon.css">
+    <link rel="stylesheet" href="/User/Static/css/style.css">
+    <script src="https://kit.fontawesome.com/6b8a71fb94.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a href="/user/home"
+                style="display: flex;flex-direction: row;align-items: center;gap: 10px;text-decoration: none;font-size: 1.6rem;font-weight: 800;
+    background: linear-gradient(45deg, #0045ff 15%, #e478c9 100%);background-clip: text;-webkit-text-fill-color: transparent;">
+                <img src="/User/images/graduation-cap.png" alt="Logo"
+                    style="width:auto; height: 50px; margin-left: 100px;">
+                EduQuiz
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+            </button>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto" style="display: flex;flex-direction: row; align-items: center;">
+                <li class="nav-item active"><a href="/user/home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="/user/lsttopic" class="nav-link">Exams</a></li>
+                <li class="nav-item"><a href="/user/contact" class="nav-link" target="_blank">Contact</a></li>
+                <li class="nav-item"><a href="/user/price" class="nav-link">Price</a></li>
+                <li id="profileMenu" class="nav-item nav-profile dropdown" style="display: none;">
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown"
+                        style="display: flex;flex-direction: row;align-items: center;gap: 10px;">
+                        <img src="/User/images/cute-little-schoolboy-graduation.png" alt="profile"
+                            style="border: 1px solid #948e8e57;border: 1px solid #948e8e57;width: 40px;height: 40px;border-radius: 100%;" />
+                        <span id="user-fullname" style="    font-size: 14px;font-weight: 600;">
+                            <!-- tên người dùng -->
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown"
+                        id="profileDropdownMenu">
+                        <a class="dropdown-item user-item-dropdown" href="/user/index"  target="_blank" >
+                            <i class="fa-solid fa-house-user" style=" font-size: 1.2rem;"></i>
+                            EduQuiz Studio
+                        </a>
+                        <a id="user-profile-link" class="dropdown-item user-item-dropdown" href="/user/profile" target="_blank">
+                            <i class="fa-solid fa-gear" style=" font-size: 1.2rem;"></i>
+                            Hồ sơ
+                        </a>
+                        <a class="dropdown-item user-item-dropdown" id="logoutButton">
+                            <i class="fa-solid fa-power-off" style=" font-size: 1.2rem;"></i>
+                            Log out
+                        </a>
+                    </div>
+                </li>
+                <style>
+                    a#profileDropdown.nav-link.dropdown-toggle::after{
+                        display: none;
+                    }
+                    #profileDropdownMenu{
+                        background-color: #ffffff5e;
+                        top: 75px;
+                    }
+                    .user-item-dropdown:focus{
+                        background-color: #ffffff;
+                    }
+                    #logoutButton:active{
+                        background-color: #ffffff;
+                        cursor: pointer;
+                    }
+                   .user-item-dropdown{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 10px;
+                        font-family: system-ui;
+                        cursor: pointer;
+                    }
+                </style>
+    <script>
+    
+        document.getElementById("logoutButton").addEventListener("click", function (event) {
+            event.preventDefault(); 
+             const keysToKeep = ['tokenAdmin'];
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    // Kiểm tra xem key có trong danh sách giữ lại hay không
+                    if (!keysToKeep.includes(key)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                // Xóa các key không cần thiết
+                keysToRemove.forEach(key => {
+                    localStorage.removeItem(key);
+                }); 
+            window.location.reload();
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+        // Kiểm tra nếu token tồn tại trong localStorage
+        const token = localStorage.getItem("token");
+        if (token) {
+        // Nếu có token, hiển thị menu
+        document.getElementById("profileMenu").style.display = "block";
+        document.getElementById("registerButton").style.display = "none";
+        document.getElementById("loginButton").style.display = "none";
+            // Lấy phần tử ảnh và menu
+            const profileImage = document.getElementById('profileDropdown');
+            const profileDropdownMenu = document.getElementById('profileDropdownMenu');
+
+            const userInfo = localStorage.getItem('userInfo');
+
+            if (userInfo) {
+                const user = JSON.parse(userInfo);
+                document.getElementById('user-fullname').textContent = user.hoten;
+            }
+
+            // Khi click vào ảnh
+            profileImage.addEventListener('click', function (event) {
+                event.preventDefault(); // Ngăn chặn hành động mặc định của thẻ a
+                // Chuyển đổi hiển thị của menu
+                if (profileDropdownMenu.style.display === 'none' || profileDropdownMenu.style.display === '') {
+                    profileDropdownMenu.style.display = 'block'; // Hiển thị menu
+                } else {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu
+                }
+            });
+
+            // Khi click bên ngoài menu, ẩn menu
+            document.addEventListener('click', function (event) {
+                // Kiểm tra nếu click bên ngoài menu và ảnh
+                if (!profileImage.contains(event.target) && !profileDropdownMenu.contains(event.target)) {
+                    profileDropdownMenu.style.display = 'none'; // Ẩn menu nếu click bên ngoài
+                }
+            });
+        } else {
+        // Nếu không có token, ẩn menu
+        document.getElementById("profileMenu").style.display = "none";
+        document.getElementById("registerButton").style.display = "block";
+        document.getElementById("loginButton").style.display = "block";
+        }
+        });
+    </script>
+    </ul>
+    </div>
+    </div>
+    </nav>
+    <!-- END nav -->
+
+    <div class="hero-wrap js-fullheight" style="background-image: url('/User/Static/images/bg_1.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
+                <div class="col-md-7 ftco-animate">
+                    <span class="subheading"></span>
+                    <h1 class="mb-4" style="font-size: 35px;margin-top: 10px">We Are Online Platform For Make Learn</h1>
+                    <p class="caps">Far far away, behind the word mountains, far from the countries Vokalia and
+                        Consonantia</p>
+                    <p class="mb-0" style="    display: flex;flex-direction: row;gap: 20px;">
+                        <a href="/user/register" class="btn btn-primary" id="registerButton">Sign up</a> 
+                        <a href="/user/login" class="btn btn-white" id="loginButton">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="ftco-section" style="padding: 60px 0;">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-center ftco-animate" style="margin-bottom: 30px;">
+                    <span class="subheading"
+                        style="display: block; font-size: 18px; color: #f86c6b; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px;">Start
+                        Learning Today</span>
+                    <h2 class="mb-4"
+                        style="font-size: 1.875rem ; font-weight: 600; color:  #d23cff; margin-bottom: 20px;">Được cộng
+                        đồng sinh viên và trường đại học trên cả nước tin cậy</h2>
+                </div>
+            </div>
+            <div class="marquee">
+                <div class="marquee-content">
+                    <div class="course-category" style="background-image: url('/User/Static/images/neu.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/epu.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/hmu.jpg');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/vnu.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/hanu.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/yv.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/bmt.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/kinhcong.png');">
+                    </div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/quany.png');"></div>
+                    <div class="course-category" style="background-image: url('/User/Static/images/yct.png');"></div>
+
+                </div>
+            </div>
+            <div class="col-md-12 text-center mt-5">
+                <a href="#" class="btn btn-secondary"
+                    style="background-color: #f86c6b; color: #fff; padding: 10px 30px; border-radius: 50px; text-transform: uppercase; font-weight: 700; transition: background-color 0.3s ease-in-out;">See
+                    All Courses</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Start Learning Today</span>
+                    <h2 class="mb-4">Pick Your Course</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-1.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-2.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-3.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-4.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-5.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ftco-animate">
+                    <div class="project-wrap">
+                        <a href="#" class="img" style="background-image: url(/User/Static/images/work-6.jpg);">
+                            <span class="price">Software</span>
+                        </a>
+                        <div class="text p-4">
+                            <h3><a href="#">Design for the web with adobe photoshop</a></h3>
+                            <p class="advisor">Advisor <span>Tony Garret</span></p>
+                            <ul class="d-flex justify-content-between">
+                                <li><span class="flaticon-shower"></span>2300</li>
+                                <li class="price">$199</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-counter img" id="section-counter"
+        style="background-image: url(/User/Static/images/bg_4.jpg);">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18 d-flex align-items-center">
+                        <div class="icon"><span class="flaticon-online"></span></div>
+                        <div class="text">
+                            <strong class="number" data-number="400">0</strong>
+                            <span>Online Courses</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18 d-flex align-items-center">
+                        <div class="icon"><span class="flaticon-graduated"></span></div>
+                        <div class="text">
+                            <strong class="number" data-number="4500">0</strong>
+                            <span>Students Enrolled</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18 d-flex align-items-center">
+                        <div class="icon"><span class="flaticon-instructor"></span></div>
+                        <div class="text">
+                            <strong class="number" data-number="1200">0</strong>
+                            <span>Experts Instructors</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 d-flex justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18 d-flex align-items-center">
+                        <div class="icon"><span class="flaticon-tools"></span></div>
+                        <div class="text">
+                            <strong class="number" data-number="300">0</strong>
+                            <span>Hours Content</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section ftco-about img">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-12 about-intro">
+                    <div class="row">
+                        <div class="col-md-6 d-flex">
+                            <div class="d-flex about-wrap">
+                                <div class="img d-flex align-items-center justify-content-center"
+                                    style="background-image:url(/User/Static/images/about-1.jpg);">
+                                </div>
+                                <div class="img-2 d-flex align-items-center justify-content-center"
+                                    style="background-image:url(/User/Static/images/about.jpg);">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-md-5 py-5">
+                            <div class="row justify-content-start pb-3">
+                                <div class="col-md-12 heading-section ftco-animate">
+                                    <span class="subheading">Enhanced Your Skills</span>
+                                    <h2 class="mb-4">Learn Anything You Want Today</h2>
+                                    <p>Far far away, behind the word mountains, far from the countries Vokalia and
+                                        Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
+                                        right at the coast of the Semantics, a large language ocean. A small river named
+                                        Duden flows by their place and supplies it with the necessary regelialia.</p>
+                                    <p><a href="#" class="btn btn-primary">Get in touch with us</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section testimony-section bg-light">
+        <div class="overlay" style="background-image: url(/User/Static/images/bg_2.jpg);"></div>
+        <div class="container">
+            <div class="row pb-4">
+                <div class="col-md-7 heading-section ftco-animate">
+                    <span class="subheading">Testimonial</span>
+                    <h2 class="mb-4">What Are Students Says</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container container-2">
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel">
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries
+                                        Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img"
+                                            style="background-image: url(/User/Static/images/person_1.jpg)"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries
+                                        Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img"
+                                            style="background-image: url(/User/Static/images/person_2.jpg)"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries
+                                        Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img"
+                                            style="background-image: url(/User/Static/images/person_3.jpg)"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries
+                                        Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img"
+                                            style="background-image: url(/User/Static/images/person_1.jpg)"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap py-4">
+                                <div class="text">
+                                    <p class="star">
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </p>
+                                    <p class="mb-4">Far far away, behind the word mountains, far from the countries
+                                        Vokalia and Consonantia, there live the blind texts.</p>
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-img"
+                                            style="background-image: url(/User/Static/images/person_2.jpg)"></div>
+                                        <div class="pl-3">
+                                            <p class="name">Roger Scott</p>
+                                            <span class="position">Marketing Manager</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-intro ftco-section ftco-no-pb">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <div class="img" style="background-image: url(/User/Static/images/bg_4.jpg);">
+                        <div class="overlay"></div>
+                        <h2>We Are StudyLab An Online Learning Center</h2>
+                        <p>We can manage your dream building A small river named Duden flows by their place</p>
+                        <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Enroll Now</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section services-section">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-md-6 heading-section pr-md-5 ftco-animate d-flex align-items-center">
+                    <div class="w-100 mb-4 mb-md-0">
+                        <span class="subheading">Welcome to StudyLab</span>
+                        <h2 class="mb-4">Tại sao nên chọn EduQuiz</h2>
+                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.
+                            It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
+                            there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the
+                            Semantics, a large language ocean.</p>
+                        <div class="d-flex video-image align-items-center mt-md-4">
+                            <a href="#" class="video img d-flex align-items-center justify-content-center"
+                                style="background-image: url(/User/Static/images/about.jpg);">
+                                <span class="fa fa-play-circle"></span>
+                            </a>
+                            <h4 class="ml-4">Learn anything from StudyLab, Watch video</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                            <div class="services">
+                                <div class="icon d-flex align-items-center justify-content-center"><span
+                                        class="flaticon-tools"></span></div>
+                                <div class="media-body">
+                                    <h3 class="heading mb-3">Top Quality Content</h3>
+                                    <p>A small river named Duden flows by their place and supplies</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                            <div class="services">
+                                <div class="icon icon-2 d-flex align-items-center justify-content-center"><span
+                                        class="flaticon-instructor"></span></div>
+                                <div class="media-body">
+                                    <h3 class="heading mb-3">Highly Skilled Instructor</h3>
+                                    <p>A small river named Duden flows by their place and supplies</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                            <div class="services">
+                                <div class="icon icon-3 d-flex align-items-center justify-content-center"><span
+                                        class="flaticon-quiz"></span></div>
+                                <div class="media-body">
+                                    <h3 class="heading mb-3">World Class &amp; Quiz</h3>
+                                    <p>A small river named Duden flows by their place and supplies</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 d-flex align-self-stretch ftco-animate">
+                            <div class="services">
+                                <div class="icon icon-4 d-flex align-items-center justify-content-center"><span
+                                        class="flaticon-browser"></span></div>
+                                <div class="media-body">
+                                    <h3 class="heading mb-3">Get Certified</h3>
+                                    <p>A small river named Duden flows by their place and supplies</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Our Blog</span>
+                    <h2 class="mb-4">Recent Post</h2>
+                </div>
+            </div>
+            <div class="row d-flex">
+                <div class="col-lg-4 ftco-animate">
+                    <div class="blog-entry">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url('/User/Static/images/image_1.jpg');">
+                        </a>
+                        <div class="text d-block">
+                            <div class="meta">
+                                <p>
+                                    <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
+                                    <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
+                                    <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+                                </p>
+                            </div>
+                            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and
+                                Consonantia/User.</p>
+                            <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 ftco-animate">
+                    <div class="blog-entry">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url('/User/Static/images/image_2.jpg');">
+                        </a>
+                        <div class="text d-block">
+                            <div class="meta">
+                                <p>
+                                    <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
+                                    <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
+                                    <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+                                </p>
+                            </div>
+                            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and
+                                Consonantia/User.</p>
+                            <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 ftco-animate">
+                    <div class="blog-entry">
+                        <a href="blog-single.html" class="block-20"
+                            style="background-image: url('/User/Static/images/image_3.jpg');">
+                        </a>
+                        <div class="text d-block">
+                            <div class="meta">
+                                <p>
+                                    <a href="#"><span class="fa fa-calendar mr-2"></span>Sept. 17, 2020</a>
+                                    <a href="#"><span class="fa fa-user mr-2"></span>Admin</a>
+                                    <a href="#" class="meta-chat"><span class="fa fa-comment mr-2"></span> 3</a>
+                                </p>
+                            </div>
+                            <h3 class="heading"><a href="#">I'm not creative, Should I take this course?</a></h3>
+                            <p>Far far away, behind the word mountains, far from the countries Vokalia and
+                                Consonantia...</p>
+                            <p><a href="blog.html" class="btn btn-secondary py-2 px-3">Read more</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="ftco-footer ftco-no-pt">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">About</h2>
+                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
+                            there live the blind texts.</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
+                            <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Help Desk</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Customer Care</a></li>
+                            <li><a href="#" class="py-2 d-block">Legal Help</a></li>
+                            <li><a href="#" class="py-2 d-block">Services</a></li>
+                            <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                            <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
+                            <li><a href="#" class="py-2 d-block">Call Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">Recent Courses</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="py-2 d-block">Computer Engineering</a></li>
+                            <li><a href="#" class="py-2 d-block">Web Design</a></li>
+                            <li><a href="#" class="py-2 d-block">Business Studies</a></li>
+                            <li><a href="#" class="py-2 d-block">Civil Engineering</a></li>
+                            <li><a href="#" class="py-2 d-block">Computer Technician</a></li>
+                            <li><a href="#" class="py-2 d-block">Web Developer</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md pt-5">
+                    <div class="ftco-footer-widget pt-md-5 mb-4">
+                        <h2 class="ftco-heading-2">Have a Questions?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain
+                                        View, San Francisco, California, USA</span></li>
+                                <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929
+                                            210</span></a></li>
+                                <li><a href="#"><span class="icon fa fa-paper-plane"></span><span
+                                            class="text">info@yourdomain.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
+                        is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                            target="_blank">Colorlib</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00" />
+        </svg></div>
+
+    <script src="/User/js/exam/check-expire-renew.js"></script>
+    <script src="/User/Static/js/jquery.min.js"></script>
+    <script src="/User/Static/js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="/User/Static/js/popper.min.js"></script>
+    <script src="/User/Static/js/bootstrap.min.js"></script>
+    <script src="/User/Static/js/jquery.easing.1.3.js"></script>
+    <script src="/User/Static/js/jquery.waypoints.min.js"></script>
+    <script src="/User/Static/js/jquery.stellar.min.js"></script>
+    <script src="/User/Static/js/owl.carousel.min.js"></script>
+    <script src="/User/Static/js/jquery.magnific-popup.min.js"></script>
+    <script src="/User/Static/js/jquery.animateNumber.min.js"></script>
+    <script src="/User/Static/js/bootstrap-datepicker.js"></script>
+    <script src="/User/Static/js/scrollax.min.js"></script>
+    <script src="/User/Static/js/main.js"></script>
+ 
+    <style>
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 40s linear infinite;
+            animation-delay: 2s;
+            /* Delay to show images before moving */
+        }
+
+        .course-category {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin-right: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 10px;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+                /* Start from the current position */
+            }
+
+            100% {
+                transform: translateX(-100%);
+                /* Move to the left end */
+            }
+        }
+    </style>
+
+</body>
+
+</html>
